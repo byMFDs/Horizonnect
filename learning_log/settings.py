@@ -30,7 +30,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=True)
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com', 'horizonnect.dev', '.horizonnect.dev', 'www.horizonnect.dev']
 
@@ -141,3 +141,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 #My settings
 LOGIN_URL = "users:login"
+
+CSRF_TRUSTED_ORIGINS = ['https://horizonnect.dev', 'https://www.horizonnect.dev']
