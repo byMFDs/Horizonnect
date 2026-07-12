@@ -1,0 +1,31 @@
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+  <h2 class="display-4 mb-4">Add a new topic</h2>
+{% endblock page_header %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-6">
+
+      <form action="{% url 'learning_logs:new_topic' %}" method="post" class="form shadow-sm p-4 bg-white rounded border">
+        {% csrf_token %}
+
+        <div class="form-group mb-3">
+          <label class="font-weight-bold text-secondary" for="{{ form.text.id_for_label }}">Topic name</label>
+          {{ form.text }}
+        </div>
+
+        <div class="form-check mb-4 d-flex align-items-center">
+          {{ form.is_public }}
+          <label class="form-check-label ml-2 mb-0" for="{{ form.is_public.id_for_label }}">
+            Make this topic Public (anyone can view and post here)
+          </label>
+        </div>
+
+        <button name="submit" class="btn btn-primary px-4 shadow-sm">Add topic</button>
+      </form>
+
+    </div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,199 @@
+ <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Log</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Базові налаштування футуристичної темної теми */
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background-color: #0b0f19; /* Дуже глибокий космічний темний колір */
+        color: #f3f4f6; /* Яскравий білий текст */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* Навігація з ефектом розмитого скла (Glassmorphism) */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 40px;
+        background: rgba(17, 24, 39, 0.7); /* Напівпрозорий фон */
+        backdrop-filter: blur(12px); /* Розмиття заднього плану */
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      /* Кіберпанк градієнтний логотип */
+      .brand-logo {
+        font-size: 22px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-decoration: none;
+        letter-spacing: -1px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+
+      /* Посилання з плавним підсвічуванням */
+      .nav-link {
+        text-decoration: none;
+        color: #9ca3af;
+        font-weight: 600;
+        font-size: 15px;
+        transition:
+          color 0.3s ease,
+          text-shadow 0.3s ease;
+      }
+
+      .nav-link:hover {
+        color: #00f2fe;
+        text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+      }
+
+      .user-greeting {
+        font-size: 15px;
+        color: #9ca3af;
+      }
+
+      .user-greeting b {
+        color: #ffffff;
+      }
+
+      /* Ультрасучасна неонова кнопка */
+      .btn-cyber {
+        background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+        color: #0b0f19 !important;
+        padding: 10px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .btn-cyber:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+      }
+
+      .btn-cyber:active {
+        transform: translateY(1px);
+      }
+
+      /* Кнопка входу (прозора з рамкою) */
+      .btn-login {
+        text-decoration: none;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 10px 20px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-login:hover {
+        border-color: #00f2fe;
+        color: #00f2fe;
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+      }
+
+      /* Контейнер для контенту, оформлений як картка */
+      .main-container {
+        flex: 1;
+        max-width: 1000px;
+        width: 100%;
+        margin: 50px auto;
+        padding: 40px;
+        background: rgba(17, 24, 39, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        box-sizing: border-box;
+        backdrop-filter: blur(6px);
+      }
+
+      /* Футуристичний підвал сайту */
+      footer {
+        padding: 30px;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: 14px;
+        color: #4b5563;
+        background-color: #070a12;
+      }
+
+      footer a {
+        color: #00f2fe;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .logout-form {
+        display: inline;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-links">
+        <a href="{% url 'learning_logs:index' %}" class="brand-logo"
+          >Learning Log</a
+        >
+        <a href="{% url 'learning_logs:topics' %}" class="nav-link">Topics</a>
+      </div>
+
+      <div class="nav-links">
+        {% if user.is_authenticated %}
+        <span class="user-greeting">Hello, <b>{{ user.username }}</b></span>
+        <form
+          action="{% url 'users:logout' %}"
+          method="post"
+          class="logout-form"
+        >
+          {% csrf_token %}
+          <button type="submit" class="btn-cyber">Log out</button>
+        </form>
+        {% else %}
+        <a href="{% url 'users:login' %}" class="btn-login">Log in</a>
+        <a href="{% url 'users:register' %}" class="btn-cyber">Register</a>
+        {% endif %}
+      </div>
+    </nav>
+
+    <main class="main-container">
+      {% block content %} {% endblock content %}
+    </main>
+
+    <footer>
+      ⚡ Powered by: <a href="https://github.com/byMFDs">byMFD</a>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+<div class="d-flex flex-column justify-content-between" style="min-height: calc(100vh - 120px);">
+
+    <div>
+        <div class="text-center my-4 py-1">
+            <h1 class="display-4 font-weight-bold text-dark" style="letter-spacing: 2px;">[ About ]</h1>
+        </div>
+
+        <div class="row px-2">
+            <div class="col-md-6 mb-3">
+                <div class="card h-100 border bg-white p-4 rounded-0" style="border-color: #dee2e6 !important;">
+                    <h1 class="text-primary font-weight-bold mb-3" style="font-size: 2.2rem;">Connect and track</h1>
+                    <h3 class="text-dark mb-4" style="font-size: 1.25rem; line-height: 1.6; font-weight: 500;">
+                        Horizonnect is a simple space to chat with others on the public forum about literally anything,
+                        while keeping a private corner to write down your personal goals, plans, and thoughts.
+                    </h3>
+                
+                    <h3 class="text-dark mb-4" style="font-size: 1.25rem; line-height: 1.6; font-weight: 500;">
+                        Chat openly. Plan privately.
+                    </h3>
+
+                    <div class="mt-auto pt-2">
+                        {% if user.is_authenticated %}
+                            <a class="btn btn-primary font-weight-bold px-4 py-2" href="{% url 'learning_logs:topics' %}" style="font-size: 1.1rem; border-radius: 4px;">
+                                View Your Topics &raquo;
+                            </a>
+                        {% else %}
+                            <a class="btn btn-primary font-weight-bold px-4 py-2" href="{% url 'users:register' %}" style="font-size: 1.1rem; border-radius: 4px;">
+                                Register &raquo;
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="card h-100 border bg-white p-4 rounded-0" style="border-color: #dee2e6 !important;">
+                    <h1 class="text-dark font-weight-bold mb-3" style="font-size: 2.2rem;">The People</h1>
+
+                    <div class="mb-3">
+                        <h3 class="font-weight-bold text-dark mb-0" style="font-size: 1.5rem;">Danylo Rudenko</h3>
+                        <p class="text-muted" style="font-size: 1.1rem; mb-0;">Founder / CEO, Misanthrope.</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <h3 class="font-weight-bold text-dark mb-0" style="font-size: 1.5rem;">Eric Matthes</h3>
+                        <p class="text-muted" style="font-size: 1.1rem; mb-0;">CTO, General Star</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <h3 class="font-weight-bold text-dark mb-0" style="font-size: 1.5rem;">Gemini/Claude</h3>
+                        <p class="text-muted" style="font-size: 1.1rem; mb-0;">Helpers, AI's, My Enemies</p>
+                    </div>
+
+                    <div class="mt-auto pt-2">
+                        <a class="btn btn-info text-white font-weight-bold px-4 py-2" href="https://t.me/byMFD" target="_blank" rel="noopener noreferrer" style="background-color: #17a2b8; font-size: 1.1rem; border-radius: 4px;">
+                            Contact us &raquo;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <hr class="my-3" style="border-top: 1px solid #dee2e6;">
+        <footer class="text-center text-muted pb-3" style="font-size: 1rem; letter-spacing: 1px;">
+            <p class="mb-1">
+                A <span class="text-dark font-weight-bold">Danylo Rudenko</span> Production
+                &bull; <span class="text-primary font-weight-bold">Horizonnect</span> &copy; 2026
+            </p>
+            <small class="text-uppercase" style="font-size: 0.8rem; color: #6c757d; font-weight: bold;">All Rights Reserved</small>
+        </footer>
+    </div>
+
+</div>
+{% endblock content %}

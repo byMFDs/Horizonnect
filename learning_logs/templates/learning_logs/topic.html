@@ -1,0 +1,70 @@
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+
+    <style>
+        .modern-heading {
+            font-family: 'Poppins', sans-serif !important;
+            font-weight: 800 !important;
+            letter-spacing: -1px;
+        }
+        .entry-card {
+            border: 1px solid rgba(0,0,0,.08) !important;
+            border-radius: 12px !important;
+            overflow: hidden;
+        }
+    </style>
+
+    <h1 class="display-4 mb-2 modern-heading text-primary">
+        {% if topic.is_public %}🌐{% else %}🔒{% endif %} {{ topic }}
+    </h1>
+    <p class="text-muted">Created by: <b>@{{ topic.owner.username }}</b></p>
+
+    <div class="mb-4 mt-3">
+        <a class="btn btn-primary shadow-sm" href="{% url 'learning_logs:new_entry' topic.id %}" role="button">
+            📝 Add new entry
+        </a>
+    </div>
+{% endblock page_header %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+
+            {% for entry in entries %}
+                <div class="card mb-4 shadow-sm entry-card bg-light">
+
+                    <div class="card-header bg-white border-bottom-0 d-flex justify-content-between align-items-center py-3">
+                        <span class="text-muted font-weight-bold">
+                            ✍️ @{{ entry.author.username }} | 📅 {{ entry.date_added|date:"M d, Y H:i" }}
+                        </span>
+
+                        <div>
+                            {% if entry.author == user %}
+                                <a class="btn btn-sm btn-outline-secondary rounded-pill px-3 mr-2" href="{% url 'learning_logs:edit_entry' entry.id %}">
+                                    ⚙️ Edit
+                                </a>
+                                <a class="btn btn-sm btn-outline-danger rounded-pill px-3" href="{% url 'learning_logs:delete_entry' entry.id %}" onclick="return confirm('Delete this entry?');">
+                                    🗑️ Delete
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="card-body bg-white pt-1 pb-4">
+                        <div class="card-text text-dark px-2" style="font-size: 1.1rem; line-height: 1.6; font-family: sans-serif;">
+                            {{ entry.text|linebreaks }}
+                        </div>
+                    </div>
+
+                </div>
+            {% empty %}
+                <div class="alert alert-warning shadow-sm py-4 text-center text-muted" role="alert">
+                    📭 There are no entries for this topic yet.
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock content %}

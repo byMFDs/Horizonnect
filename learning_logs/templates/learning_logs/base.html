@@ -1,0 +1,87 @@
+{% load bootstrap4 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Horizonnect</title>
+    <link rel="icon" type="image/png" href="{% static 'my_logo.jpg' %}">
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery="full" %}
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+        <a class="navbar-brand" href="{% url 'learning_logs:index' %}">
+            <h3>Horizonnect</h3>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold text-dark px-3" href="{% url 'learning_logs:public_topics' %}" style="font-size: 1.15rem;">
+                        🌐 Public Forum
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold text-primary px-3" href="{% url 'learning_logs:topics' %}" style="font-size: 1.15rem;">
+                        🔒 Private
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto d-flex align-items-center">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <h4 class="nav-link disabled text-dark mb-0 pb-0 pt-0" style="padding-right: 15px;">
+                            Hello, {{ user.username }}!
+                        </h4>
+                    </li>
+                    <li class="nav-item ml-2">
+                        <a class="btn btn-danger font-weight-bold shadow-sm" href="#"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                           style="font-size: 1.05rem; padding: 6px 18px;">
+                                Log out
+                        </a>
+                        <form id="logout-form" action="{% url 'users:logout' %}" method="post" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item mr-2">
+                        <a class="btn btn-outline-success font-weight-bold" href="{% url 'users:login' %}"
+                           style="font-size: 1.05rem; padding: 6px 18px;">
+                            Log in
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary font-weight-bold shadow-sm" href="{% url 'users:register' %}"
+                           style="font-size: 1.05rem; padding: 6px 18px;">
+                            Register
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main role="main" class="container">
+        <div class="pb-2 mb-2 border-bottom">
+            {% block page_header %}{% endblock page_header %}
+        </div>
+
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
+    </main>
+
+</body>
+</html>
