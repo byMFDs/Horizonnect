@@ -32,11 +32,18 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com', 'horizonnect.dev', '.horizonnect.dev', 'www.horizonnect.dev']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.herokuapp.com',
+    'horizonnect.dev',
+    '.horizonnect.dev',
+    'www.horizonnect.dev',
+]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-SECURE_SSL_REDIRECT = True  # тепер це працюватиме коректно завдяки SECURE_PROXY_SSL_HEADER
+SECURE_SSL_REDIRECT = False  # тепер це працюватиме коректно завдяки SECURE_PROXY_SSL_HEADER
 # Application definition
 
 INSTALLED_APPS = [
