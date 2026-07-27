@@ -1,4 +1,3 @@
-{% extends "learning_logs/base.html" %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 — Page Not Found | Horizonnect</title>
+    <link rel="icon" type="image/jpeg" href="{% static 'my_logo.jpg' %}">
     <style>
         * {
             box-sizing: border-box;
@@ -20,7 +20,6 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        /* Main Container */
         .main-container {
             flex: 1;
             display: flex;
@@ -36,7 +35,6 @@
             color: #212529;
             letter-spacing: -0.5px;
         }
-        /* Card matching Horizonnect style */
         .error-card {
             background: #ffffff;
             border: 1px solid #e9ecef;
@@ -59,7 +57,6 @@
             margin-bottom: 24px;
             line-height: 1.5;
         }
-        /* Button matching Register » style */
         .btn-primary {
             display: inline-block;
             background-color: #007bff;
@@ -74,7 +71,6 @@
         .btn-primary:hover {
             background-color: #0056b3;
         }
-        /* Footer matching site bottom bar */
         .footer {
             text-align: center;
             padding: 25px 20px;
@@ -104,8 +100,14 @@
         <div class="error-card">
             <h2>Page Not Found</h2>
             <p>The page you are looking for doesn't exist or has been moved.</p>
-            <a href="/" class="btn-primary">Return Home »</a>
+            <a href="{% url 'learning_logs:index' %}" class="btn-primary">Return Home »</a>
         </div>
     </div>
+
+    <div class="footer">
+        A <strong>Danylo Rudenko</strong> Production • <a href="{% url 'learning_logs:index' %}">Horizonnect</a> © 2026
+        <span class="footer-rights">ALL RIGHTS RESERVED</span>
+    </div>
+
 </body>
 </html>
